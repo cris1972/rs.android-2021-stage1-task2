@@ -5,23 +5,22 @@ import java.time.LocalDate
 
 class DateFormatter {
 
-    // дни недели написать большими буквами
+
     fun toTextDay(day: String, month: String, year: String): String {
-        println("метод отработал")
+
       var  outputString=""
-        var date = LocalDate.of(year.toInt(), month.toInt(), day.toInt())
-        val dow = date.dayOfWeek
+
 
 
        outputString = findData(day,month,year)
-            println(dow)
+            println(outputString)
 
       return outputString
     }
 
     private fun findData(day: String, month: String, year: String): String {
         var outputString=""
-        outputString = testOnCorektDate(day, month, year)
+
         when(month){
             "1"-> outputString = "января"
             "2"-> outputString ="февраля"
@@ -40,16 +39,23 @@ class DateFormatter {
 
         var dayOfWeek = "воскресенье"
             dayOfWeek = findDayOfWeek(day,month,year)
-        outputString = "$day $outputString, $dayOfWeek"
+        outputString = if (dayOfWeek != "Такого дня не существует") {
+            "$day $outputString, $dayOfWeek"
+        } else{
+            dayOfWeek
+
+        }
 
         return outputString
 
 
     }
     private fun findDayOfWeek(day: String, month: String, year: String): String {
+        var outputString = ""
+        try{
         var date = LocalDate.of(year.toInt(), month.toInt(), day.toInt())
         val day = date.dayOfWeek.toString()
-        var outputString = ""
+
         when(day){
 
             "SUNDAY" -> outputString ="воскресенье"
@@ -59,20 +65,14 @@ class DateFormatter {
             "Friday" -> outputString ="пятница"
             "Saturday" -> outputString ="суббота"
 
+        }}
+        catch (e: Exception){
+            outputString = "Такого дня не существует"
         }
 
         return outputString
 
     }
 
-    private fun testOnCorektDate(day: String, month: String, year: String): String {
-        var outputString = ""
-        when(month){
 
-
-        }
-
-        return outputString
-
-    }
 }
